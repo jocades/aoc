@@ -8,27 +8,47 @@ const TEST: &'static str = "7 6 4 2 1
 8 6 4 4 1
 1 3 6 7 9";
 
-fn is_safe(line: &str) -> bool {
-    let mut prev: Option<i32> = None;
-    let mut dir = 0; // inc = 1 | dec = -1 | first = 0
-    for n in line.split_whitespace().map(|w| w.parse::<i32>().unwrap()) {
-        if let Some(prev) = prev {
-            if (n > prev && dir < 0) || (n < prev && dir > 0) {
-                return false;
+fn parse_line(line: &str) -> Vec<i32> {
+    line.split_whitespace()
+        .map(|n| n.parse().unwrap())
+        .collect()
+}
+
+fn is_safe(nums: &[i32]) -> bool {
+    use std::iter::zip;
+
+    let mut v =
+        zip(nums, &nums[1..]).all(|(a, b)| a > b) || zip(nums, &nums[1..]).all(|(a, b)| a < b);
+    if v {
+        for (a, b) in zip(nums, &nums[1..]) {
+            if !(1..=3).contains(&(a - b).abs()) {
+                v = false;
+                break;
             }
-            let dif = (n - prev).abs();
-            if dif > 3 || dif < 1 {
-                return false;
-            }
-            dir = if n < prev { -1 } else { 1 };
         }
-        prev = Some(n);
     }
-    true
+    v
+}
+
+fn part1(input: &str) -> usize {
+    input
+        .lines()
+        .filter(|line| is_safe(&parse_line(line)))
+        .count()
+}
+
+fn part2(input: &str) -> usize {
+    input
+        .lines()
+        .filter(|line| {
+            let nums = parse_line(line);
+            is_safe(&nums)
+                || (0..nums.len()).any(|i| is_safe(&[&nums[..i], &nums[i + 1..]].concat()))
+        })
+        .count()
 }
 
 fn main() {
-    let output = INPUT.lines().filter(|line| is_safe(line)).count();
-    println!("{:?}", INPUT.lines().last());
-    println!("{output}");
+    println!("part1 = {}", part1(INPUT));
+    println!("part2 = {}", part2(INPUT));
 }
