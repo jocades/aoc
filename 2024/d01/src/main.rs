@@ -1,13 +1,12 @@
-use std::collections::HashMap;
+const INPUT: &'static str = include_str!("input");
 
+#[allow(dead_code)]
 const TEST: &'static str = "3   4
 4   3
 2   5
 1   3
 3   9
 3   3";
-
-const INPUT: &'static str = include_str!("input");
 
 fn parse(input: &str, l1: &mut Vec<i32>, l2: &mut Vec<i32>) {
     for line in input.lines() {
@@ -32,7 +31,6 @@ fn part2(input: &str) -> i32 {
     parse(input, &mut l1, &mut l2);
 
     // O(len(l1) * len(l2))
-    // PERF: Simple cache.
     l1.iter()
         .map(|x| {
             let n = l2.iter().filter(|&y| x == y).count();
@@ -45,7 +43,7 @@ fn part2_with_cache(input: &str) -> i32 {
     let (mut l1, mut l2) = (Vec::new(), Vec::new());
     parse(input, &mut l1, &mut l2);
 
-    let mut cache = HashMap::new();
+    let mut cache = std::collections::HashMap::new();
     l1.iter()
         .map(|x| {
             if let Some(&v) = cache.get(x) {
