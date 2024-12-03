@@ -28,14 +28,9 @@ fn part2() -> i32 {
             if let Some(op) = c.get(3) {
                 enabled = op.as_str() == "do()";
             }
-
             if enabled {
-                match (c.get(1), c.get(2)) {
-                    (Some(l), Some(r)) => {
-                        out +=
-                            l.as_str().parse::<i32>().unwrap() * r.as_str().parse::<i32>().unwrap()
-                    }
-                    _ => (),
+                if let (Some(l), Some(r)) = (c.get(1), c.get(2)) {
+                    out += l.as_str().parse::<i32>().unwrap() * r.as_str().parse::<i32>().unwrap()
                 }
             }
         });
