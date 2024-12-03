@@ -22,14 +22,13 @@ def part2():
 
     out = 0
     enabled = True
-    for m in re.finditer(r"mul\((\d{1,3}),(\d{1,3})\)|(don't\(\)|do\(\))", test):
+    for m in re.finditer(r"mul\((\d{1,3}),(\d{1,3})\)|(don't\(\)|do\(\))", input):
         if m.group(3):
             enabled = m.group(3) == "do()"
         if enabled and m.group(1) and m.group(2):
             out += int(m.group(1)) * int(m.group(2))
-        print(f"{out=} match={m.group(1, 2, 3)}")
-
     return out
 
 
-print(part2())
+print(f"{part1()=}")
+print(f"{part2()=}")
