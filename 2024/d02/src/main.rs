@@ -15,12 +15,9 @@ fn parse_line(line: &str) -> Vec<i32> {
 }
 
 fn is_safe(nums: &[i32]) -> bool {
-    use std::iter::zip;
-
-    let mut v =
-        zip(nums, &nums[1..]).all(|(a, b)| a > b) || zip(nums, &nums[1..]).all(|(a, b)| a < b);
+    let mut v = nums.windows(2).all(|w| w[0] > w[1]) || nums.windows(2).all(|w| w[0] < w[1]);
     if v {
-        for (a, b) in zip(nums, &nums[1..]) {
+        for (a, b) in nums.iter().zip(&nums[1..]) {
             if !(1..=3).contains(&(a - b).abs()) {
                 v = false;
                 break;
@@ -42,8 +39,7 @@ fn part2(input: &str) -> usize {
         .lines()
         .filter(|line| {
             let nums = parse_line(line);
-            is_safe(&nums)
-                || (0..nums.len()).any(|i| is_safe(&[&nums[..i], &nums[i + 1..]].concat()))
+            (0..nums.len()).any(|i| is_safe(&[&nums[..i], &nums[i + 1..]].concat()))
         })
         .count()
 }
