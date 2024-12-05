@@ -41,7 +41,7 @@ def part2():
     word = "MAS"
     out = 0
     for r in range(1, len(grid) - 1):
-        for c in range(len(grid[0]) - 1):
+        for c in range(1, len(grid[0]) - 1):
             if grid[r][c] != word[1]:
                 continue
 
