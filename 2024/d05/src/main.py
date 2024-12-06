@@ -1,4 +1,3 @@
-from rich import print
 from time import time
 from functools import cmp_to_key
 
@@ -59,6 +58,7 @@ def part2():
     return out
 
 
-part1()
-part1_with_cache()
-part2()
+if __name__ == "__main__":
+    part1()
+    part1_with_cache()
+    part2()
