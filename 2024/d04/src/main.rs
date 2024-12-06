@@ -1,6 +1,6 @@
-const INPUT: &'static str = include_str!("input");
+const INPUT: &str = include_str!("input");
 
-const _TEST: &'static str = "MMMSXXMASM
+const _TEST: &str = "MMMSXXMASM
 MSAMXMSMSA
 AMXSXMAAMM
 MSAMASMSMX
@@ -12,7 +12,7 @@ MAMMMXMMMM
 MXMXAXMASX";
 
 fn part1(grid: &[Vec<char>]) -> i32 {
-    let word: Vec<char> = "XMAS".chars().collect();
+    let word = ['X', 'M', 'A', 'S'];
     let mut out = 0;
     for r in 0..grid.len() {
         for c in 0..grid[0].len() {
@@ -27,8 +27,8 @@ fn part1(grid: &[Vec<char>]) -> i32 {
                     let rest = word[1..].len() as isize;
                     let maxr = r as isize + ar * rest;
                     let maxc = c as isize + ac * rest;
-                    if !(0 <= maxr && maxr < grid.len() as isize)
-                        || !(0 <= maxc && maxc < grid[0].len() as isize)
+                    if !((0 <= maxr && maxr < grid.len() as isize)
+                        && (0 <= maxc && maxc < grid[0].len() as isize))
                     {
                         continue;
                     }
@@ -47,7 +47,7 @@ fn part1(grid: &[Vec<char>]) -> i32 {
 }
 
 fn part2(grid: &[Vec<char>]) -> i32 {
-    let word: Vec<char> = "MAS".chars().collect();
+    let word = ['M', 'A', 'S'];
     let mut out = 0;
     for r in 1..grid.len() - 1 {
         for c in 1..grid[0].len() - 1 {

@@ -11,13 +11,10 @@ SAXAMASAAA
 MAMMMXMMMM
 MXMXAXMASX"""  # 18
 
-grid = input.splitlines()
 
-adjacent = [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)]
-
-
-def part1():
+def part1(grid: list[str]):
     word = "XMAS"
+    adjacent = [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)]
     out = 0
     for r in range(len(grid)):
         for c in range(len(grid[0])):
@@ -37,7 +34,7 @@ def part1():
     return out
 
 
-def part2():
+def part2(grid: list[str]):
     word = "MAS"
     out = 0
     for r in range(1, len(grid) - 1):
@@ -56,5 +53,6 @@ def part2():
     return out
 
 
-print(f"{part1()=}")
-print(f"{part2()=}")
+grid = input.splitlines()
+print(f"{part1(grid)=}")
+print(f"{part2(grid)=}")
