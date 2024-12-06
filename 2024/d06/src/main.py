@@ -1,6 +1,9 @@
 input = open("src/test").read().strip()
 
 grid = input.splitlines()
+rows = len(grid)
+cols = len(grid[0])
+
 dir = {
     "^": (-1, 0),
     ">": (0, 1),
@@ -11,8 +14,8 @@ keys = list(dir.keys())
 
 
 def find():
-    for r in range(len(grid)):
-        for c in range(len(grid[0])):
+    for r in range(rows):
+        for c in range(cols):
             s = grid[r][c]
             if s != "." and s != "#":
                 return s, r, c
@@ -23,29 +26,27 @@ d, r, c = find()
 dr, dc = dir[d]
 print("start", r, c, d)
 
-out = []
+seen = set()
 while True:
-    out.append((r, c))
-    print(r, c, grid[r][c])
+    print("current", r, c, grid[r][c])
+    seen.add((r, c))
 
     # peek
-    r += dr
-    c += dc
-    if not (0 <= r < len(grid) and 0 <= c < len(grid[0])):
+    pr = r + dr
+    pc = c + dc
+
+    if not (0 <= pr < rows and 0 <= pc < cols):
         print("out of bounds!")
         break
 
-    if grid[r][c] == "#":
-        print("touch", r, c)
+    print("peek", pr, pc, grid[pr][pc])
 
+    if grid[pr][pc] == "#":
         d = keys[(keys.index(d) + 1) % len(keys)]
-        nr, nc = dir[d]
-
-        r = r - dr + nr
-        c = c - dc + nc
-
-        dr = nr
-        dc = nc
+        dr, dc = dir[d]
+    else:
+        r += dr
+        c += dc
 
 
-print(len(set(out)))
+print(len(seen))
