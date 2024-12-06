@@ -1,4 +1,4 @@
-input = open("src/input").read().strip()
+input = open("src/test").read().strip()
 
 grid = input.splitlines()
 dir = {
@@ -26,6 +26,9 @@ print("start", r, c, d)
 out = []
 while True:
     out.append((r, c))
+    print(r, c, grid[r][c])
+
+    # peek
     r += dr
     c += dc
     if not (0 <= r < len(grid) and 0 <= c < len(grid[0])):
@@ -35,17 +38,12 @@ while True:
     if grid[r][c] == "#":
         print("touch", r, c)
 
-        cr = r - dr
-        cc = c - dc
-        print("current", cr, cc)
+        d = keys[(keys.index(d) + 1) % len(keys)]
+        nr, nc = dir[d]
 
-        nd = keys[(keys.index(d) + 1) % len(keys)]
-        nr, nc = dir[nd]
-        r = cr + nr
-        c = cc + nc
-        print("next", nd, r, c)
+        r = r - dr + nr
+        c = c - dc + nc
 
-        d = nd
         dr = nr
         dc = nc
 
