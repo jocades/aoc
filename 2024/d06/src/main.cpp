@@ -1,66 +1,57 @@
-#include "stdc++.h"
+#include <stdc++.h>
 
-void version() {
-  if (__cplusplus == 202101L)
-    std::cout << "C++23";
-  else if (__cplusplus == 202002L)
-    std::cout << "C++20";
-  else if (__cplusplus == 201703L)
-    std::cout << "C++17";
-  else if (__cplusplus == 201402L)
-    std::cout << "C++14";
-  else if (__cplusplus == 201103L)
-    std::cout << "C++11";
-  else if (__cplusplus == 199711L)
-    std::cout << "C++98";
-  else
-    std::cout << "pre-standard C++." << __cplusplus;
-  std::cout << "\n";
-}
+#define contains(a, b, c) (a <= c && c < b)
 
 int main() {
-  version();
-
   vector<string> grid;
-
   string line;
-  while (getline(cin, line)) {
-    grid.push_back(line);
-  }
+  while (cin >> line) grid.push_back(line);
   int rows = grid.size();
   int cols = grid[0].size();
-  cout << "rows=" << rows << ' ' << "cols=" << cols << '\n';
 
   pair<int, int> me{-1, -1};
-  for (int r = 0; r < rows; r++) {
-    for (int c = 0; c < cols; c++) {
+  iter(r, 0, rows) {
+    iter(c, 0, cols) {
       if (grid[r][c] == '^') {
-        me = make_pair(r, c);
-        cout << "me " << r << ' ' << c << '\n';
+        me = {r, c};
+        cout << "me " << r << ' ' << c << endl;
         break;
       }
     }
   }
 
   pair<int, int> dirs[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+  auto is_loop = [&](pair<int, int> me) {
+    int d = 0;
+    vector<bool> seen(rows * cols * 4);
+    loop {
+      int k = (me.first * cols + me.second) * 4 + d;
+      if (seen[k]) return true;
+      seen[k] = true;
 
-  int d = 0;
-  set<pair<int, int>> seen;
-
-  while (true) {
-    seen.insert(me);
-
-    int nr = me.first + dirs[d].first;
-    int nc = me.second + dirs[d].second;
-    if (!(0 <= nr && nr < rows && 0 <= nc && nc < cols)) {
-      break;
+      int nr = me.first + dirs[d].first;
+      int nc = me.second + dirs[d].second;
+      if (!(contains(0, rows, nr) && contains(0, cols, nc))) {
+        return false;
+      }
+      if (grid[nr][nc] == '#') {
+        d = (d + 1) % 4;
+      } else {
+        me = {nr, nc};
+      }
     }
-    if (grid[nr][nc] == '#') {
-      d = (d + 1) % 4;
-    } else {
-      me = {nr, nc};
+  };
+
+  int count = 0;
+  iter(r, 0, rows) {
+    iter(c, 0, cols) {
+      if (grid[r][c] == '.') {
+        grid[r][c] = '#';
+        if (is_loop(me)) count++;
+        grid[r][c] = '.';
+      }
     }
   }
 
-  cout << seen.size() << '\n';
+  cout << count << endl;
 }

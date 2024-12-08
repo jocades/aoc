@@ -177,7 +177,7 @@ fn main() {
     let (t2, r2) = timeit!(part2_faster(&mut grid));
     println!("part2_faster = {r2} took {t2:?}");
 
-    let n = 5;
+    /* let n = 5;
     let runs = (0..n)
         .map(|_| timeit!(part2_faster(&mut grid)).0)
         .collect::<Vec<_>>();
@@ -203,7 +203,7 @@ fn main() {
     }
     stats.mean = sum / (runs.len() - 1) as u32;
 
-    println!("part2_faster = {r2} {stats:#?}");
+    println!("part2_faster = {r2} {stats:#?}"); */
 
     // let (t1, r1) = timeit!(part2(&mut grid));
     // assert_eq!(r1, r2);
