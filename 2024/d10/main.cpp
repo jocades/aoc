@@ -58,7 +58,7 @@ int score(pos me) {
   return summits;
 }
 
-int dfs(pos me, int t, set<pos>& seen) {
+int dfs(pos me, set<pos>& seen) {
   // if (seen.count(me) > 0) return 0;
   // seen.insert(me);
   if (g[me.first][me.second] == 9) return 1;
@@ -68,8 +68,8 @@ int dfs(pos me, int t, set<pos>& seen) {
     int r = me.first + dir.first;
     int c = me.second + dir.second;
     if (!(0 <= r && r < rows && 0 <= c && c < cols)) continue;
-    if (g[r][c] != t) continue;
-    count += dfs({r, c}, t + 1, seen);
+    if (g[r][c] != g[me.first][me.second] + 1) continue;
+    count += dfs({r, c}, seen);
   }
   return count;
 }
@@ -93,7 +93,7 @@ int main() {
       set<pos> seen;
       // find_peak(me, 1, me);
       // out += score(me);
-      out += dfs(me, 1, seen);
+      out += dfs(me, seen);
     }
   }
 
