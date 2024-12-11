@@ -1,6 +1,8 @@
-#include <stdc++.h>
+#include <bits/stdc++.h>
+using namespace std;
 
-#define contains(a, b, c) (a <= c && c < b)
+// Contains. if `c` in `a`..`b`
+#define cts(a, b, c) (a <= c && c < b)
 
 int main() {
   vector<string> grid;
@@ -31,7 +33,7 @@ int main() {
 
       int nr = me.first + dirs[d].first;
       int nc = me.second + dirs[d].second;
-      if (!(contains(0, rows, nr) && contains(0, cols, nc))) {
+      if (!(cts(0, rows, nr) && cts(0, cols, nc))) {
         return false;
       }
       if (grid[nr][nc] == '#') {
