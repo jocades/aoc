@@ -87,3 +87,4 @@ The Historians sure are taking a long time. To be fair, the infinite corridors
 
 *How many stones would you have after blinking a total of 75 times?*
 
+**Answer**: `228651922369703`.
