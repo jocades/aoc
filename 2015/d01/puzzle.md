@@ -31,6 +31,8 @@ For example:
 
 To *what floor* do the instructions take Santa?
 
+**Answer**: `280`.
+
 ## --- Part Two ---
 
 Now, given the same instructions, find the *position* of the first character
@@ -44,3 +46,5 @@ For example:
 
 What is the *position* of the character that causes Santa to first enter the
 basement?
+
+**Answer**: `1797`.
