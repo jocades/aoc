@@ -205,3 +205,4 @@ Adding these together produces its new total price of `*1206*`.
 
 *What is the new total price of fencing all regions on your map?*
 
+**Answer**: `899196`.

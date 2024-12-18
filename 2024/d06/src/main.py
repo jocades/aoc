@@ -66,44 +66,7 @@ def part2():
     return out
 
 
-def part2_faster():
-    r, c = find()
-
-    def is_loop(grid: list[list[str]], r: int, c: int):
-        d = 0
-        dr, dc = dirs[d]
-        seen = [False for _ in range(rows * cols * 4)]
-        while True:
-            key = (r * cols + c) * 4 + d
-            if seen[key]:
-                return True
-            seen[key] = True
-
-            nr, nc = r + dr, c + dc
-            if not (0 <= nr < rows and 0 <= nc < cols):
-                return False
-            if grid[nr][nc] == "#":
-                d = (d + 1) % 4
-                dr, dc = dirs[d]
-            else:
-                r, c = nr, nc
-
-    out = 0
-    for i in range(rows):
-        for j in range(cols):
-            if grid[i][j] != ".":
-                continue
-            grid[i][j] = "#"
-            if is_loop(grid, r, c):
-                out += 1
-            grid[i][j] = "."
-    return out
-
-
 from time import time
 
 start = time()
 print(f"{part2()=} took {time() - start}s")
-
-start = time()
-print(f"{part2_faster()=} took {time() - start}s")

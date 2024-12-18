@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Contains. if `c` in `a`..`b`
+// Contains. `c in a..b`
 #define cts(a, b, c) (a <= c && c < b)
 
 int main() {

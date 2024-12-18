@@ -1,25 +1,19 @@
 import re
 
-test = """190: 10 19
-3267: 81 40 27
-83: 17 5
-156: 15 6
-7290: 6 8 6 15
-161011: 16 10 13
-192: 17 8 14
-21037: 9 7 18 13
-292: 11 6 16 20"""
 
 input = open("input").read()
 
 
-def solve(i, p, t, nums):
+def solve(i, acc, t, nums):
+    # print(i, acc, t, nums)
     if i == len(nums):
-        if p == t:
-            return True
-        return False
+        return acc == t
 
-    return solve(i + 1, p + nums[i], t, nums) or solve(i + 1, p * nums[i], t, nums)
+    return (
+        solve(i + 1, acc + nums[i], t, nums)
+        or solve(i + 1, acc * nums[i], t, nums)
+        or solve(i + 1, int(str(acc) + str(nums[i])), t, nums)
+    )
 
 
 out = 0

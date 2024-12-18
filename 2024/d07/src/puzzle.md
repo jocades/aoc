@@ -87,3 +87,4 @@ could possibly be true. *What is their total calibration result?*
 
 [1]: https://en.wikipedia.org/wiki/Concatenation
 
+**Answer**: `456565678667482`.
